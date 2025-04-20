@@ -1,0 +1,31 @@
+/* Adjust styles to make the UI look similar to the provided images */
+
+/* General container for the app */
+body {
+    background-color: #111;
+    color: #fff;
+    font-family: Arial, sans-serif;
+  }
+  
+  /* Login styles */
+  input {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 20px;
+    background-color: #333;
+    border-radius: 5px;
+    color: white;
+  }
+  
+  button {
+    background-color: #22C55E;
+    color: white;
+    padding: 15px;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  button:hover {
+    background-color: #1e9e50;
+  }
+  
