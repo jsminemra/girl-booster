@@ -14,13 +14,14 @@ import { WebView } from 'react-native-webview';
 import { Modalize } from 'react-native-modalize';
 
 const screenWidth = Dimensions.get('window').width;
+const screenHeight = Dimensions.get('window').height;
 const imageWidth = Math.min(screenWidth * 0.95, 400);
 const imageHeight = imageWidth / (933 / 621);
 
 const links = {
-  girlhack: 'https://mixed-dart-8b8.notion.site/Girl-Hack-Perca-peso-treinando-10-minutos-por-dia-15e7e407b3b380c3aeafd1e33115ad78',
-  bumbum: 'https://mixed-dart-8b8.notion.site/Desafio-Bumbum-Modelado-18c7e407b3b380d395a8fa2d3447d99d?pvs=74',
-  receitas: 'https://mixed-dart-8b8.notion.site/Receitas-Cetog-nicas-Continue-comendo-doce-e-DERRETA-a-barriguinha-15e7e407b3b38076abfaeaa4eedb40bb',
+  girlhack: 'https://mixed-dart-8b8.notion.site/ebd/15e7e407b3b380c3aeafd1e33115ad78',
+  bumbum: 'https://mixed-dart-8b8.notion.site/ebd/18c7e407b3b380d395a8fa2d3447d99d',
+  receitas: 'https://mixed-dart-8b8.notion.site/ebd/15e7e407b3b38076abfaeaa4eedb40bb',
   baixarApp: 'https://mixed-dart-8b8.notion.site/19d7e407b3b38006a0f9d4dbf0e3322a?pvs=25',
 };
 
@@ -30,11 +31,17 @@ export default function HomeScreen({ nome, email, onLogout, onAcessarTreino }) {
 
   const abrirModal = (url) => {
     if (Platform.OS === 'web') {
-      Linking.openURL(url);
+      setModalUrl(url);
+      modalRef.current?.open();
     } else {
       setModalUrl(url);
       modalRef.current?.open();
     }
+  };
+
+  const fecharModal = () => {
+    modalRef.current?.close();
+    setModalUrl('');
   };
 
   return (
@@ -95,16 +102,30 @@ export default function HomeScreen({ nome, email, onLogout, onAcessarTreino }) {
       </ScrollView>
 
       <Modalize
-        ref={modalRef}
-        modalStyle={styles.modalSheet}
-        handleStyle={{ backgroundColor: '#555' }}
-        adjustToContentHeight={false}
-        modalHeight={600}
-      >
-        <View style={{ flex: 1, height: 600 }}>
-          <WebView source={{ uri: modalUrl }} style={styles.webview} />
-        </View>
-      </Modalize>
+  ref={modalRef}
+  modalStyle={styles.modalSheet}
+  withHandle={false}
+  adjustToContentHeight={false}
+  modalHeight={screenHeight}
+>
+  <View style={{ flex: 1, height: screenHeight }}>
+    <TouchableOpacity style={styles.fecharBotao} onPress={fecharModal}>
+      <Text style={styles.fecharTexto}>✖ Fechar</Text>
+    </TouchableOpacity>
+
+    {Platform.OS === 'web' ? (
+      <iframe
+        src={modalUrl}
+        width="100%"
+        height="100%"
+        style={{ border: 'none' }}
+        allowFullScreen
+      />
+    ) : (
+      <WebView source={{ uri: modalUrl }} style={{ flex: 1 }} />
+    )}
+  </View>
+</Modalize>
     </View>
   );
 }
@@ -220,7 +241,14 @@ const styles = StyleSheet.create({
     overflow: 'hidden',
     flex: 1,
   },
-  webview: {
-    flex: 1,
+  fecharBotao: {
+    padding: 10,
+    alignItems: 'flex-end',
+    marginRight: 15,
+  },
+  fecharTexto: {
+    fontFamily: 'Inter_700Bold',
+    color: '#ccc',
+    fontSize: 16,
   },
 });

@@ -133,18 +133,28 @@ export default function TreinoCasaScreen({ onVoltar, nivel }) {
                 <View style={styles.botoesContainer}>
                   {Array.isArray(ex.video) ? (
                     <>
-                      <TouchableOpacity
-                        style={styles.verButton}
-                        onPress={() => Linking.openURL(ex.video[0])}
-                      >
-                        <Text style={styles.verButtonText}>▶ VER EXECUÇÃO 1</Text>
-                      </TouchableOpacity>
+                      {ex.video[0] && (
+                        <TouchableOpacity
+                          style={styles.verButton}
+                          onPress={() => Linking.openURL(ex.video[0])}
+                        >
+                          <Text style={styles.verButtonText}>▶ VER EXECUÇÃO 1</Text>
+                        </TouchableOpacity>
+                      )}
                       {ex.video[1] && (
                         <TouchableOpacity
                           style={styles.verButton}
                           onPress={() => Linking.openURL(ex.video[1])}
                         >
                           <Text style={styles.verButtonText}>▶ VER EXECUÇÃO 2</Text>
+                        </TouchableOpacity>
+                      )}
+                      {ex.video[2] && (
+                        <TouchableOpacity
+                          style={styles.verButton}
+                          onPress={() => Linking.openURL(ex.video[2])}
+                        >
+                          <Text style={styles.verButtonText}>▶ VER EXECUÇÃO 3</Text>
                         </TouchableOpacity>
                       )}
                     </>
