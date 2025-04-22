@@ -69,6 +69,11 @@ export default function TreinoCasaScreen({ onVoltar, nivel }) {
 
   const treinos = getTreinosPorNivel();
 
+  const grupoMuscularAtual =
+    nivel === 'iniciante' && diaSelecionado === 'quarta'
+      ? 'Bíceps e Abdomen'
+      : gruposMusculares[diaSelecionado];
+
   return (
     <ScrollView contentContainerStyle={styles.scrollContent}>
       <View style={styles.wrapper}>
@@ -84,7 +89,7 @@ export default function TreinoCasaScreen({ onVoltar, nivel }) {
           onPress={() => setDropdownAberto(!dropdownAberto)}
         >
           <Text style={styles.dropdownTexto}>
-            {nomeFormatado[diaSelecionado]} - {gruposMusculares[diaSelecionado]}
+            {nomeFormatado[diaSelecionado]} - {grupoMuscularAtual}
           </Text>
           <Text style={styles.seta}>{dropdownAberto ? '▲' : '▼'}</Text>
         </TouchableOpacity>
@@ -102,7 +107,9 @@ export default function TreinoCasaScreen({ onVoltar, nivel }) {
                   }}
                 >
                   <Text style={styles.dropdownTexto}>
-                    {nomeFormatado[dia]} - {gruposMusculares[dia]}
+                    {nomeFormatado[dia]} - {(nivel === 'iniciante' && dia === 'quarta')
+                      ? 'Bíceps e Abdomen'
+                      : gruposMusculares[dia]}
                   </Text>
                 </TouchableOpacity>
               ) : null
