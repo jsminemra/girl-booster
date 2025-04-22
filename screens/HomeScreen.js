@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useRef } from 'react';
 import {
   View,
   Text,
@@ -7,13 +7,36 @@ import {
   Image,
   ScrollView,
   Dimensions,
+  Platform,
+  Linking,
 } from 'react-native';
+import { WebView } from 'react-native-webview';
+import { Modalize } from 'react-native-modalize';
 
 const screenWidth = Dimensions.get('window').width;
 const imageWidth = Math.min(screenWidth * 0.95, 400);
 const imageHeight = imageWidth / (933 / 621);
 
+const links = {
+  girlhack: 'https://mixed-dart-8b8.notion.site/Girl-Hack-Perca-peso-treinando-10-minutos-por-dia-15e7e407b3b380c3aeafd1e33115ad78',
+  bumbum: 'https://mixed-dart-8b8.notion.site/Desafio-Bumbum-Modelado-18c7e407b3b380d395a8fa2d3447d99d?pvs=74',
+  receitas: 'https://mixed-dart-8b8.notion.site/Receitas-Cetog-nicas-Continue-comendo-doce-e-DERRETA-a-barriguinha-15e7e407b3b38076abfaeaa4eedb40bb',
+  baixarApp: 'https://mixed-dart-8b8.notion.site/19d7e407b3b38006a0f9d4dbf0e3322a?pvs=25',
+};
+
 export default function HomeScreen({ nome, email, onLogout, onAcessarTreino }) {
+  const [modalUrl, setModalUrl] = useState('');
+  const modalRef = useRef(null);
+
+  const abrirModal = (url) => {
+    if (Platform.OS === 'web') {
+      Linking.openURL(url);
+    } else {
+      setModalUrl(url);
+      modalRef.current?.open();
+    }
+  };
+
   return (
     <View style={styles.fullscreen}>
       <ScrollView contentContainerStyle={styles.container}>
@@ -36,37 +59,33 @@ export default function HomeScreen({ nome, email, onLogout, onAcessarTreino }) {
 
           <Text style={styles.kitTitle}>Kit Corpinho de Verão</Text>
 
-          <TouchableOpacity style={styles.kitCard}>
-            <Image
-              source={require('../assets/images/girlhack.png')}
-              style={styles.kitIcon}
-            />
+          <TouchableOpacity style={styles.kitCard} onPress={() => abrirModal(links.girlhack)}>
+            <Image source={require('../assets/images/girlhack.png')} style={styles.kitIcon} />
             <View>
               <Text style={styles.kitLabel}>Girl</Text>
               <Text style={styles.kitText}>hack</Text>
             </View>
           </TouchableOpacity>
 
-          <TouchableOpacity style={styles.kitCard}>
-            <Image
-              source={require('../assets/images/bumbummodelado.png')}
-              style={styles.kitIcon}
-            />
+          <TouchableOpacity style={styles.kitCard} onPress={() => abrirModal(links.bumbum)}>
+            <Image source={require('../assets/images/bumbummodelado.png')} style={styles.kitIcon} />
             <View>
               <Text style={styles.kitLabel}>Desafio</Text>
               <Text style={styles.kitText}>bumbum modelado</Text>
             </View>
           </TouchableOpacity>
 
-          <TouchableOpacity style={styles.kitCard}>
-            <Image
-              source={require('../assets/images/receitas.png')}
-              style={styles.kitIcon}
-            />
+          <TouchableOpacity style={styles.kitCard} onPress={() => abrirModal(links.receitas)}>
+            <Image source={require('../assets/images/receitas.png')} style={styles.kitIcon} />
             <View>
               <Text style={styles.kitLabel}>100 Receitas</Text>
               <Text style={styles.kitText}>Cetogênicas</Text>
             </View>
+          </TouchableOpacity>
+
+          {/* BOTÃO NOVO */}
+          <TouchableOpacity style={styles.downloadButton} onPress={() => abrirModal(links.baixarApp)}>
+            <Text style={styles.downloadText}>📲 Baixe o app aqui</Text>
           </TouchableOpacity>
 
           <TouchableOpacity style={styles.logoutButton} onPress={onLogout}>
@@ -74,6 +93,18 @@ export default function HomeScreen({ nome, email, onLogout, onAcessarTreino }) {
           </TouchableOpacity>
         </View>
       </ScrollView>
+
+      <Modalize
+        ref={modalRef}
+        modalStyle={styles.modalSheet}
+        handleStyle={{ backgroundColor: '#555' }}
+        adjustToContentHeight={false}
+        modalHeight={600}
+      >
+        <View style={{ flex: 1, height: 600 }}>
+          <WebView source={{ uri: modalUrl }} style={styles.webview} />
+        </View>
+      </Modalize>
     </View>
   );
 }
@@ -160,15 +191,36 @@ const styles = StyleSheet.create({
     color: '#fff',
     fontSize: 16,
   },
+  downloadButton: {
+    backgroundColor: '#444',
+    padding: 15,
+    borderRadius: 10,
+    marginBottom: 15,
+    alignItems: 'center',
+  },
+  downloadText: {
+    fontFamily: 'Inter_700Bold',
+    color: '#fff',
+  },
   logoutButton: {
     backgroundColor: '#f55',
     padding: 15,
     borderRadius: 10,
-    marginTop: 30,
+    marginTop: 0,
     alignItems: 'center',
   },
   logoutText: {
     fontFamily: 'Inter_700Bold',
     color: '#fff',
+  },
+  modalSheet: {
+    backgroundColor: '#111',
+    borderTopLeftRadius: 20,
+    borderTopRightRadius: 20,
+    overflow: 'hidden',
+    flex: 1,
+  },
+  webview: {
+    flex: 1,
   },
 });
