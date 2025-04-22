@@ -22,7 +22,7 @@ const links = {
   girlhack: 'https://mixed-dart-8b8.notion.site/ebd/15e7e407b3b380c3aeafd1e33115ad78',
   bumbum: 'https://mixed-dart-8b8.notion.site/ebd/18c7e407b3b380d395a8fa2d3447d99d',
   receitas: 'https://mixed-dart-8b8.notion.site/ebd/15e7e407b3b38076abfaeaa4eedb40bb',
-  baixarApp: 'https://mixed-dart-8b8.notion.site/19d7e407b3b38006a0f9d4dbf0e3322a?pvs=25',
+  baixarApp: 'https://mixed-dart-8b8.notion.site/ebd/1dd7e407b3b38047a9bbdb199d73ed54',
 };
 
 export default function HomeScreen({ nome, email, onLogout, onAcessarTreino }) {

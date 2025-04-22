@@ -8,12 +8,13 @@ const imageHeight = (imageWidth / 935) * 622; // proporção original da imagem
 export default function LocalTreinoScreen({ onEscolherLocal, onVoltar }) {
   return (
     <View style={styles.container}>
-      <TouchableOpacity onPress={onVoltar}>
-        <Text style={styles.voltar}>← Voltar</Text>
-      </TouchableOpacity>
-
-      <Text style={styles.title}>Onde você vai</Text>
-      <Text style={styles.subtitle}>treinar hoje?</Text>
+      <View style={styles.header}>
+        <TouchableOpacity onPress={onVoltar}>
+          <Text style={styles.voltar}>← Voltar</Text>
+        </TouchableOpacity>
+        <Text style={styles.title}>Onde você vai</Text>
+        <Text style={styles.subtitle}>treinar hoje?</Text>
+      </View>
 
       <TouchableOpacity
         onPress={() => onEscolherLocal('academia')}
@@ -47,12 +48,15 @@ const styles = StyleSheet.create({
     paddingHorizontal: 20,
     paddingTop: 40,
   },
+  header: {
+    alignSelf: 'flex-start',
+    marginBottom: 30,
+  },
   voltar: {
     fontFamily: 'Inter_400Regular',
     color: '#888',
-    alignSelf: 'flex-start',
     fontSize: 16,
-    marginBottom: 20,
+    marginBottom: 12,
   },
   title: {
     fontFamily: 'Inter_700Bold',
@@ -63,7 +67,7 @@ const styles = StyleSheet.create({
     fontFamily: 'Inter_400Regular',
     color: '#fff',
     fontSize: 18,
-    marginBottom: 30,
+    marginTop: 4,
   },
   image: {
     width: imageWidth,
