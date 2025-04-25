@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react';
+import React from 'react';
 import {
   View,
   Text,
@@ -7,11 +7,8 @@ import {
   Image,
   ScrollView,
   Dimensions,
-  Platform,
   Linking,
 } from 'react-native';
-import { WebView } from 'react-native-webview';
-import { Modalize } from 'react-native-modalize';
 
 const screenWidth = Dimensions.get('window').width;
 const screenHeight = Dimensions.get('window').height;
@@ -19,29 +16,15 @@ const imageWidth = Math.min(screenWidth * 0.95, 400);
 const imageHeight = imageWidth / (933 / 621);
 
 const links = {
-  girlhack: 'https://mixed-dart-8b8.notion.site/ebd/15e7e407b3b380c3aeafd1e33115ad78',
-  bumbum: 'https://mixed-dart-8b8.notion.site/ebd/18c7e407b3b380d395a8fa2d3447d99d',
-  receitas: 'https://mixed-dart-8b8.notion.site/ebd/15e7e407b3b38076abfaeaa4eedb40bb',
-  baixarApp: 'https://mixed-dart-8b8.notion.site/ebd/1dd7e407b3b38047a9bbdb199d73ed54',
+  girlhack: 'https://mixed-dart-8b8.notion.site/Girl-Hack-Perca-peso-treinando-10-minutos-por-dia-15e7e407b3b380c3aeafd1e33115ad78',
+  bumbum: 'https://mixed-dart-8b8.notion.site/ebd/18c7e407b3b380d395a8fa2d3447d99d', // mantendo o que já estava
+  receitas: 'https://mixed-dart-8b8.notion.site/Receitas-Cetog-nicas-Continue-comendo-doce-e-DERRETA-a-barriguinha-15e7e407b3b38076abfaeaa4eedb40bb',
+  baixarApp: 'https://www.notion.so/Treino-Carol-19d7e407b3b38006a0f9d4dbf0e3322a?pvs=4#19d7e407b3b38041a48df1b244b20698',
 };
 
 export default function HomeScreen({ nome, email, onLogout, onAcessarTreino }) {
-  const [modalUrl, setModalUrl] = useState('');
-  const modalRef = useRef(null);
-
-  const abrirModal = (url) => {
-    if (Platform.OS === 'web') {
-      setModalUrl(url);
-      modalRef.current?.open();
-    } else {
-      setModalUrl(url);
-      modalRef.current?.open();
-    }
-  };
-
-  const fecharModal = () => {
-    modalRef.current?.close();
-    setModalUrl('');
+  const abrirLink = (url) => {
+    Linking.openURL(url);
   };
 
   return (
@@ -66,7 +49,7 @@ export default function HomeScreen({ nome, email, onLogout, onAcessarTreino }) {
 
           <Text style={styles.kitTitle}>Kit Corpinho de Verão</Text>
 
-          <TouchableOpacity style={styles.kitCard} onPress={() => abrirModal(links.girlhack)}>
+          <TouchableOpacity style={styles.kitCard} onPress={() => abrirLink(links.girlhack)}>
             <Image source={require('../assets/images/girlhack.png')} style={styles.kitIcon} />
             <View>
               <Text style={styles.kitLabel}>Girl</Text>
@@ -74,7 +57,7 @@ export default function HomeScreen({ nome, email, onLogout, onAcessarTreino }) {
             </View>
           </TouchableOpacity>
 
-          <TouchableOpacity style={styles.kitCard} onPress={() => abrirModal(links.bumbum)}>
+          <TouchableOpacity style={styles.kitCard} onPress={() => abrirLink(links.bumbum)}>
             <Image source={require('../assets/images/bumbummodelado.png')} style={styles.kitIcon} />
             <View>
               <Text style={styles.kitLabel}>Desafio</Text>
@@ -82,7 +65,7 @@ export default function HomeScreen({ nome, email, onLogout, onAcessarTreino }) {
             </View>
           </TouchableOpacity>
 
-          <TouchableOpacity style={styles.kitCard} onPress={() => abrirModal(links.receitas)}>
+          <TouchableOpacity style={styles.kitCard} onPress={() => abrirLink(links.receitas)}>
             <Image source={require('../assets/images/receitas.png')} style={styles.kitIcon} />
             <View>
               <Text style={styles.kitLabel}>100 Receitas</Text>
@@ -90,8 +73,7 @@ export default function HomeScreen({ nome, email, onLogout, onAcessarTreino }) {
             </View>
           </TouchableOpacity>
 
-          {/* BOTÃO NOVO */}
-          <TouchableOpacity style={styles.downloadButton} onPress={() => abrirModal(links.baixarApp)}>
+          <TouchableOpacity style={styles.downloadButton} onPress={() => abrirLink(links.baixarApp)}>
             <Text style={styles.downloadText}>📲 Baixe o app aqui</Text>
           </TouchableOpacity>
 
@@ -100,32 +82,6 @@ export default function HomeScreen({ nome, email, onLogout, onAcessarTreino }) {
           </TouchableOpacity>
         </View>
       </ScrollView>
-
-      <Modalize
-  ref={modalRef}
-  modalStyle={styles.modalSheet}
-  withHandle={false}
-  adjustToContentHeight={false}
-  modalHeight={screenHeight}
->
-  <View style={{ flex: 1, height: screenHeight }}>
-    <TouchableOpacity style={styles.fecharBotao} onPress={fecharModal}>
-      <Text style={styles.fecharTexto}>✖ Fechar</Text>
-    </TouchableOpacity>
-
-    {Platform.OS === 'web' ? (
-      <iframe
-        src={modalUrl}
-        width="100%"
-        height="100%"
-        style={{ border: 'none' }}
-        allowFullScreen
-      />
-    ) : (
-      <WebView source={{ uri: modalUrl }} style={{ flex: 1 }} />
-    )}
-  </View>
-</Modalize>
     </View>
   );
 }
@@ -233,22 +189,5 @@ const styles = StyleSheet.create({
   logoutText: {
     fontFamily: 'Inter_700Bold',
     color: '#fff',
-  },
-  modalSheet: {
-    backgroundColor: '#111',
-    borderTopLeftRadius: 20,
-    borderTopRightRadius: 20,
-    overflow: 'hidden',
-    flex: 1,
-  },
-  fecharBotao: {
-    padding: 10,
-    alignItems: 'flex-end',
-    marginRight: 15,
-  },
-  fecharTexto: {
-    fontFamily: 'Inter_700Bold',
-    color: '#ccc',
-    fontSize: 16,
   },
 });
