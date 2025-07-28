@@ -39,79 +39,51 @@ export default function HomeScreen({ nome, email, onLogout, onAcessarTreino }) {
           {/* Kit Corpinho de Verão */}
           <Text style={styles.kitTitle}>Kit Corpinho de Verão</Text>
 
-          {/* Botão 1: Drink Anti Pochete */}
-          <TouchableOpacity
-            style={styles.kitCard}
-            onPress={() =>
-              Linking.openURL(
-                'https://resisted-cricket-621.notion.site/DRINK-ANTI-POCHETE-Receita-Caseira-Para-Emagrecimento-Acelerado-209f4b16b97e8009a173cff6e426f58a?pvs=74'
-              )
-            }
-          >
+          <TouchableOpacity style={styles.kitCard}>
             <Image
-              source={require('../assets/images/drink.jpg')}
+              source={require('../assets/images/girlhack.png')}
               style={styles.kitIcon}
             />
             <View>
-              <Text style={styles.kitLabel}>DRINK</Text>
-              <Text style={styles.kitText}>Anti Pochete</Text>
+              <Text style={styles.kitLabel}>Girl</Text>
+              <Text style={styles.kitText}>hack</Text>
             </View>
           </TouchableOpacity>
 
-          {/* Botão 2: Desafio Bumbum Max */}
-          <TouchableOpacity
-            style={styles.kitCard}
-            onPress={() =>
-              Linking.openURL(
-                'https://resisted-cricket-621.notion.site/TREINO-BUMBUM-MAX-Edi-o-Academia-209f4b16b97e80c19517d1a855eb8797?pvs=74'
-              )
-            }
-          >
+          <TouchableOpacity style={styles.kitCard}>
             <Image
-              source={require('../assets/images/desafio.jpg')}
+              source={require('../assets/images/bumbummodelado.png')}
               style={styles.kitIcon}
             />
             <View>
-              <Text style={styles.kitLabel}>DESAFIO</Text>
-              <Text style={styles.kitText}>Bumbum Max</Text>
+              <Text style={styles.kitLabel}>Desafio</Text>
+              <Text style={styles.kitText}>bumbum modelado</Text>
             </View>
           </TouchableOpacity>
 
-          {/* Botão 3: 100 Receitas Cetogênicas */}
-          <TouchableOpacity
-            style={styles.kitCard}
-            onPress={() =>
-              Linking.openURL(
-                'https://mixed-dart-8b8.notion.site/Receitas-Cetog-nicas-Continue-comendo-doce-e-DERRETA-a-barriguinha-15e7e407b3b38076abfaeaa4eedb40bb'
-              )
-            }
-          >
+          <TouchableOpacity style={styles.kitCard}>
             <Image
               source={require('../assets/images/receitas.png')}
               style={styles.kitIcon}
             />
             <View>
-              <Text style={styles.kitLabel}>100 RECEITAS</Text>
+              <Text style={styles.kitLabel}>100 Receitas</Text>
               <Text style={styles.kitText}>Cetogênicas</Text>
             </View>
           </TouchableOpacity>
 
           {/* Botão Telegram */}
-          <TouchableOpacity
-            style={styles.telegramButton}
+          <TouchableOpacity 
+            style={styles.telegramButton} 
             onPress={() => Linking.openURL('https://t.me/+vlIfg-3DcjQ4MGNh')}
           >
             <Text style={styles.telegramText}>ACESSO AO CANAL EXCLUSIVO 💪🏽</Text>
           </TouchableOpacity>
 
           {/* Botão Baixar App */}
-          <TouchableOpacity
-            style={styles.downloadButton}
-            onPress={() =>
-              Linking.openURL(
-                'https://mixed-dart-8b8.notion.site/Treino-Carol-19d7e407b3b38006a0f9d4dbf0e3322a'
-              )
-            }
+          <TouchableOpacity 
+            style={styles.downloadButton} 
+            onPress={() => Linking.openURL('https://mixed-dart-8b8.notion.site/Treino-Carol-19d7e407b3b38006a0f9d4dbf0e3322a')}
           >
             <Text style={styles.downloadText}>📱 Baixe o app aqui</Text>
           </TouchableOpacity>
